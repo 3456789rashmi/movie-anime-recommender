@@ -18,10 +18,15 @@ def cached_gems() -> list[dict]:
     return hidden_gems(min_rating=7.5, max_votes_percentile=25)[:5]
 
 
-st.title("Unified Movie + Anime Recommendation Engine")
-st.write(
-    "Discover movies and anime together using MongoDB search, aggregation "
-    "pipelines, mood tags, analytics, and personalized recommendations."
+st.markdown(
+    """
+    <div class="hero">
+        <div class="section-kicker" style="color:#b9f3ed;">DISCOVER SOMETHING GREAT</div>
+        <h1>Movies and anime, matched to your taste.</h1>
+        <p>Search, compare, explore by mood, and find your next favorite title.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 with st.spinner("Loading live catalog statistics..."):
@@ -34,6 +39,7 @@ for column, label, value in zip(
 ):
     column.metric(label, f"{value:,}")
 
+st.markdown('<div class="section-kicker">CURATED FOR YOU</div>', unsafe_allow_html=True)
 st.header("Hidden gems")
 with st.spinner("Finding hidden gems..."):
     gems = cached_gems()

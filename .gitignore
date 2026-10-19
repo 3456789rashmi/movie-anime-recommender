@@ -3,4 +3,3 @@ venv/
 data/*.csv
 __pycache__/
 *.py[cod]
-.streamlit/

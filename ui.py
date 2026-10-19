@@ -7,6 +7,112 @@ from typing import Any
 import streamlit as st
 
 
+def apply_theme() -> None:
+    """Apply shared visual styling across all Streamlit pages."""
+    st.markdown(
+        """
+        <style>
+        :root {
+            --ink: #172033;
+            --muted: #64748b;
+            --brand: #0f766e;
+            --brand-dark: #115e59;
+            --surface: #ffffff;
+            --background: #f4f7fb;
+        }
+
+        .stApp {
+            background: var(--background);
+        }
+
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #102a43 0%, #163b56 100%);
+        }
+
+        [data-testid="stSidebar"] h1,
+        [data-testid="stSidebar"] p,
+        [data-testid="stSidebar"] span,
+        [data-testid="stSidebar"] label {
+            color: #f8fafc;
+        }
+
+        h1, h2, h3 {
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        [data-testid="stMetric"] {
+            background: var(--surface);
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px 16px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+        }
+
+        [data-testid="stMetricLabel"] {
+            color: var(--muted);
+        }
+
+        [data-testid="stMetricValue"] {
+            color: var(--brand-dark);
+        }
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            background: var(--surface);
+            border-color: #dbe4ee;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+        }
+
+        .stButton > button {
+            border: 0;
+            border-radius: 9px;
+            background: var(--brand);
+            color: white;
+            font-weight: 700;
+            transition: background 120ms ease, transform 120ms ease;
+        }
+
+        .stButton > button:hover {
+            background: var(--brand-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e 0%, #155e75 55%, #1e3a8a 100%);
+            border-radius: 20px;
+            color: white;
+            padding: 30px 34px;
+            margin: 0 0 26px;
+            box-shadow: 0 12px 28px rgba(15, 118, 110, 0.2);
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 2.35rem;
+            margin: 0 0 8px;
+        }
+
+        .hero p {
+            color: #dff7f5;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .section-kicker {
+            color: var(--brand);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def render_title_card(
     title: dict[str, Any],
     *,
@@ -53,8 +159,11 @@ def render_title_card(
 def setup_page(title: str) -> None:
     """Apply the shared page title and sidebar branding."""
     st.set_page_config(page_title=title, page_icon="🎬", layout="wide")
-    st.sidebar.title("Movie + Anime Recommender")
-    st.sidebar.caption("MongoDB-powered recommendations")
+    apply_theme()
+    st.sidebar.markdown("## 🎬 CineVerse")
+    st.sidebar.caption("Movie + anime discovery")
+    st.sidebar.markdown("---")
+    st.sidebar.caption("Powered by MongoDB aggregation and personalized taste profiles.")
 
 
 def current_user() -> str | None:
