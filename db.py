@@ -11,13 +11,22 @@ from pymongo import ASCENDING, DESCENDING, MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError, PyMongoError
+from streamlit.errors import StreamlitSecretNotFoundError
 
 load_dotenv()
 
 _MONGO_URI = os.getenv("MONGO_URI")
 _DB_NAME = os.getenv("DB_NAME", "media_recommender")
+try:
+    import streamlit as st
+
+    _MONGO_URI = st.secrets.get("MONGO_URI", _MONGO_URI)
+    _DB_NAME = st.secrets.get("DB_NAME", _DB_NAME)
+except StreamlitSecretNotFoundError:
+    pass
+
 if not _MONGO_URI:
-    raise RuntimeError("MONGO_URI is not configured in .env")
+    raise RuntimeError("MONGO_URI is not configured in local .env or Streamlit Secrets")
 
 client = MongoClient(_MONGO_URI)
 db = client[_DB_NAME]
