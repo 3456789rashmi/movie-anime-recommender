@@ -1,0 +1,9 @@
+query,mode,average_ms,totalDocsExamined,nReturned,winning_stage
+text search,without indexes (COLLSCAN),64.288,17652,5,COLLSCAN
+text search,with indexes,0.588,5,5,IXSCAN
+genre filter,without indexes (COLLSCAN),51.552,17652,4322,COLLSCAN
+genre filter,with indexes,45.35,4322,4322,IXSCAN
+filter + sort by rating,without indexes (COLLSCAN),19.545,17652,311,COLLSCAN
+filter + sort by rating,with indexes,4.533,311,311,IXSCAN
+mood filter,without indexes (COLLSCAN),79.767,17652,7498,COLLSCAN
+mood filter,with indexes,81.1,7498,7498,IXSCAN
